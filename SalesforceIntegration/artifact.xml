@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="SyncAccountDataSeq" groupId="com.example.SalesforceIntegration.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SyncAccountDataSeq.xml</file>
+    </artifact>
+    <artifact name="SyncAccountsFromDBTask" groupId="com.example.SalesforceIntegration.task" version="1.0.0" type="synapse/task" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/tasks/SyncAccountsFromDBTask.xml</file>
+    </artifact>
+    <artifact name="SyncAccountsFromDBSeq" groupId="com.example.SalesforceIntegration.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/SyncAccountsFromDBSeq.xml</file>
+    </artifact>
+    <artifact name="FileInboundEP" groupId="com.example.SalesforceIntegration.inbound-endpoint" version="1.0.0" type="synapse/inbound-endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/inbound-endpoints/FileInboundEP.xml</file>
+    </artifact>
+</artifacts>

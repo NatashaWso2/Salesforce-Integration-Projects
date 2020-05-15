@@ -1,0 +1,44 @@
+<data name="RDBMSDataService" serviceNamespace="" serviceGroup="" transports="http https local">
+  <description />
+  <config id="RDBMSDatasource">
+    <property name="driverClassName">com.mysql.jdbc.Driver</property>
+    <property name="url">jdbc:mysql://localhost:3306/SalesforceData</property>
+    <property name="username">USERNAME</property>
+    <property name="password">PASSWORD</property>
+  </config>
+  <resource method="GET" path="accounts/new">
+    <description />
+    <call-query href="GetNewAccounts" />
+  </resource>
+  <query id="GetNewAccounts" useConfig="RDBMSDatasource">
+    <sql>select Id, Name, AccountNumber, Type, BillingState, ShippingState, Ownership, Industry, NumberOfEmployees, Phone from Accounts where AddedToSF=0</sql>
+    <result outputType="json">{
+  "Accounts": {
+    "Account": [
+      {
+        "Id": "$Id",
+        "Details": {
+          "Name": "$Name",
+          "Type": "$Type",
+          "AccountNumber": "$AccountNumber",
+          "BillingState": "$BillingState",
+          "ShippingState": "$ShippingState",
+          "Ownership": "$Ownership",
+          "Industry": "$Industry",
+          "NumberOfEmployees": "$NumberOfEmployees",
+          "Phone": "$Phone"
+        }
+      }
+    ]
+  }
+}
+</result>
+  </query>
+  <query id="FlagAccountsSynced" useConfig="RDBMSDatasource">
+    <sql>update Accounts set AddedToSF=1 where AddedToSF=0</sql>
+  </query>
+  <resource method="GET" path="accounts/synced">
+    <description />
+    <call-query href="FlagAccountsSynced" />
+  </resource>
+</data>
