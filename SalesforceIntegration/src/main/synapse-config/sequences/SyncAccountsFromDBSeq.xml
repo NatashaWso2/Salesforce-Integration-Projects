@@ -2,34 +2,13 @@
 <sequence name="SyncAccountsFromDBSeq" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
     <header name="Accept" scope="transport" value="application/json"/>
     <call description="Invoke Data Service">
-        <endpoint>
-            <http method="get" uri-template="http://localhost:8280/services/RDBMSDataService/accounts/new">
-                <suspendOnFailure>
-                    <initialDuration>-1</initialDuration>
-                    <progressionFactor>-1</progressionFactor>
-                    <maximumDuration>0</maximumDuration>
-                </suspendOnFailure>
-                <markForSuspension>
-                    <retriesBeforeSuspension>0</retriesBeforeSuspension>
-                </markForSuspension>
-            </http>
-        </endpoint>
+        <endpoint key="RDBMSGetNewAccounts"/>
     </call>
     <filter description="Filter Accounts" regex="true" source="boolean(//Accounts/Account)">
         <then>
             <sequence key="SyncAccountDataSeq"/>
             <call>
-                <endpoint>
-                    <http method="get" uri-template="http://localhost:8280/services/RDBMSDataService/accounts/synced">
-                        <suspendOnFailure>
-                            <initialDuration>-1</initialDuration>
-                            <progressionFactor>1</progressionFactor>
-                        </suspendOnFailure>
-                        <markForSuspension>
-                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
-                        </markForSuspension>
-                    </http>
-                </endpoint>
+                <endpoint key="RDBMSFlagAccounts"/>
             </call>
             <log description="Success Log" level="custom">
                 <property name="AccountsSyncedLog" value="Account information is moved to Salesforce successfully"/>

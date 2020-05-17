@@ -29,6 +29,7 @@
                 </payloadFactory>
                 <salesforcerest.create>
                     <sObjectName>Account</sObjectName>
+<fieldAndValue>{json-eval($)}</fieldAndValue>
                 </salesforcerest.create>
             </sequence>
         </target>
